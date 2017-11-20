@@ -125,8 +125,6 @@ class Metric(PostProcessor):
               for hist in range(len(currentInput)):
                 realization = currentInput.getRealization(hist)
                 requestData.append(realization[ioType][metricDataName])
-              print("-------------metricData:-----------------------------")
-              print(requestData)
               metricData = (requestData, metadata['ProbabilityWeight'])
 
       elif isinstance(currentInput, Distributions.Distribution):
