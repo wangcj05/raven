@@ -14,7 +14,7 @@
       This test checks the Metric PostProcessor
     </description>
     <revisions>
-        <revision author="wangc" data="2017-11-20">restructure metric system, add time-dependent capability</revision>
+        <revision author="wangc" date="2017-11-20">restructure metric system, add time-dependent capability</revision>
     </revisions>
   </TestInfo>
 
