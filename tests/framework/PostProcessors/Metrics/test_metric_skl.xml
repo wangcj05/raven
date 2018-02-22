@@ -20,7 +20,6 @@
 
   <Files>
     <Input name="output_metric" type="">output_metric.xml</Input>
-    <Input name="chi2_metric" type="">chi2_metric.xml</Input>
   </Files>
 
   <Models>
