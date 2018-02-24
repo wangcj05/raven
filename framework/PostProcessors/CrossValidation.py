@@ -318,11 +318,11 @@ class CrossValidation(PostProcessor):
         if targetName not in outputDict.keys():
           outputDict[targetName] = {}
         for metricInstance in self.metricsDict.values():
-          metricValue = metricInstance.distance(targetValue, testDict[targetName])
+          metricValue = metricInstance.evaluate(targetValue, testDict[targetName])
           if hasattr(metricInstance, 'metricType'):
-            if metricInstance.metricType not in self.validMetrics:
-              self.raiseAnError(IOError, "The metric type: ", metricInstance.metricType, " can not be used, the accepted metric types are: ", str(self.validMetrics))
-            metricName = metricInstance.metricType
+            if metricInstance.metricType[1] not in self.validMetrics:
+              self.raiseAnError(IOError, "The metric type: ", metricInstance.metricType[1], " can not be used, the accepted metric types are: ", str(self.validMetrics))
+            metricName = metricInstance.metricType[1]
           else:
             metricName = metricInstance.type
           metricName = metricInstance.name + '_' + metricName
