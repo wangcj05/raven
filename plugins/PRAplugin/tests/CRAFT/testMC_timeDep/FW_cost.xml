@@ -2,7 +2,7 @@
 
   <RunInfo>
       <WorkingDir>./</WorkingDir>
-      <Sequence>MultiRun,print</Sequence>
+      <Sequence>MultiRun</Sequence>
       <batchSize>1</batchSize>
   </RunInfo>
 
@@ -369,7 +369,7 @@
              delta_P2,
              alpha_SG, beta_SG
       </Input>
-      <Output>time, opPower,
+      <Output>opPower,
               p_V1, p_V2, p_P1, p_P2, p_SG,
               outcome_V1, outcome_V2, outcome_SG, outcome_P1P2_0, outcome_P1P2_1, outcome_P1P2_2,
               cost_V1, cost_V2, cost_SG, cost_P1P2_0, cost_P1P2_1, cost_P1P2_2,
