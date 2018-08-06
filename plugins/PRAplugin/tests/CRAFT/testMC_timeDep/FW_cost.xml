@@ -2,7 +2,7 @@
 
   <RunInfo>
       <WorkingDir>./</WorkingDir>
-      <Sequence>MultiRun</Sequence>
+      <Sequence>MultiRun,print</Sequence>
       <batchSize>1</batchSize>
   </RunInfo>
 
@@ -15,9 +15,6 @@
       </MultiRun>
       <IOStep name='print'>
         <Input   class="DataObjects" type="DataSet"       >main</Input>
-        <Output  class='OutStreams'  type='Plot'          >plot_V1</Output>
-        <Output  class='OutStreams'  type='Plot'          >plot_V2</Output>
-        <Output  class='OutStreams'  type='Plot'          >plot_SG</Output>
         <Output  class='OutStreams'  type='Print'         >Print_sim_PS</Output>
       </IOStep>
   </Steps>
@@ -242,6 +239,7 @@
       <variables>opPower, time, cost_P1P2_0, cost_P1P2_1, cost_P1P2_2</variables>
     </ExternalModel>
 
+    <!-- PRA models-->
     <ExternalModel name="PRA" ModuleToLoad="PRA" subType="">
       <variables>time, p_V1, p_V2, p_SG, p_P1, p_P2,
                  CDF_mean,CDF_5p,CDF_95p</variables>

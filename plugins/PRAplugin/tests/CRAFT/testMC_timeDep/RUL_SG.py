@@ -13,6 +13,9 @@ def run(self,Input):
   # output: t, p
   self.p_SG = np.zeros(len(self.time))
 
+  updatedMean  = (Input['alpha_SG']-50.) * 365.
+  updatedsigma = Input['beta_SG']  * 365.
+
   for ts in range(len(self.time)):
-    self.p_SG[ts] = RULmodel(Input['alpha_SG'], Input['beta_SG'], self.time[ts])
+    self.p_SG[ts] = RULmodel(updatedMean, updatedsigma, self.time[ts])
 
