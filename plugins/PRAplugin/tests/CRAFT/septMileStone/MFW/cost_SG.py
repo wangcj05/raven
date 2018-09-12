@@ -7,4 +7,4 @@ def run(self,Input):
 
   cost_SG = Input['SG_numberDaysSD'] * Input['SG_costPerDaySD']
 
-  self.cost_SG = cost_SG * np.ones(Input['time'].size)
+  self.cost_SG = cost_SG * Input['costFactor']

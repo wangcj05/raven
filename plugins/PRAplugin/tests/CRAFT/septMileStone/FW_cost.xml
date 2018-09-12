@@ -195,6 +195,10 @@
         <Input            class="DataObjects" type="PointSet"   >inputPlaceHolderMain</Input>
         <TargetEvaluation class="DataObjects" type="HistorySet" >plantData_PS</TargetEvaluation>
       </Model>
+      <Model class="Models" type="ExternalModel">priceData
+        <Input            class="DataObjects" type="PointSet"   >inputPlaceHolder_priceData_PS</Input>
+        <TargetEvaluation class="DataObjects" type="DataSet"    >priceData_PS</TargetEvaluation>
+      </Model>
 
       <Model class="Models" type="ExternalModel">lambdaV1
         <Input            class="DataObjects" type="PointSet"  >inputPlaceHolder_lambdaV1_PS</Input>
@@ -261,6 +265,11 @@
                  time,opPower</variables>
     </ExternalModel>
 
+    <ExternalModel name="priceData" ModuleToLoad="priceData" subType="">
+      <variables>
+          time,opPower,costFactor
+      </variables>
+    </ExternalModel>
     <!-- Reliability models-->
     <ExternalModel name="lambdaV1" ModuleToLoad="lambdaV1" subType="">
       <variables>opPower, time, a_V1, b_V1,
@@ -324,19 +333,19 @@
 
     <!-- Cost models-->
     <ExternalModel name="cost_V1" ModuleToLoad="cost_V1" subType="">
-      <variables>V1_numberDaysSD, V1_costPerDaySD, opPower, time, cost_V1</variables>
+      <variables>costFactor, V1_numberDaysSD, V1_costPerDaySD, opPower, time, cost_V1</variables>
     </ExternalModel>
     <ExternalModel name="cost_V2" ModuleToLoad="cost_V2" subType="">
-      <variables>V2_numberDaysSD, V2_costPerDaySD, opPower, time, cost_V2</variables>
+      <variables>costFactor, V2_numberDaysSD, V2_costPerDaySD, opPower, time, cost_V2</variables>
     </ExternalModel>
     <ExternalModel name="cost_SG" ModuleToLoad="cost_SG" subType="">
-      <variables>SG_numberDaysSD, SG_costPerDaySD, opPower, time, cost_SG</variables>
+      <variables>costFactor, SG_numberDaysSD, SG_costPerDaySD, opPower, time, cost_SG</variables>
     </ExternalModel>
     <ExternalModel name="cost_P1P2" ModuleToLoad="cost_P1P2" subType="">
         <variables>
             P1P2_numberDaysSD, P1P2_costPerDayPred, P1P2_numberDaysPred, 
             P1P2_costPerDaySD, P1P2_costPerDayReg,opPower, time, cost_P1P2_0, 
-            cost_P1P2_1, cost_P1P2_2
+            cost_P1P2_1, cost_P1P2_2, costFactor
         </variables>
     </ExternalModel>
     <PostProcessor name="statAnalysis" subType="BasicStatistics" verbosity="debug">
@@ -378,6 +387,14 @@
           <pivotParameter>time</pivotParameter>
       </options>
     </HistorySet>
+    
+    <DataSet name="priceData_PS">
+      <Input>
+            opPower, time
+      </Input>
+      <Output>costFactor</Output>
+      <Index var="time">opPower,costFactor</Index>
+    </DataSet>
 
     <DataSet name="lambdaV1_PS">
       <Input>opPower, time, a_V1, b_V1,
@@ -454,34 +471,36 @@
     <DataSet name="cost_V1_PS">
         <Input>
             opPower, time, outcome_V1, outcome_V2, outcome_SG, outcome_P1P2_0, outcome_P1P2_1, outcome_P1P2_2,
-            V1_numberDaysSD, V1_costPerDaySD
+            V1_numberDaysSD, V1_costPerDaySD, costFactor
         </Input>
       <Output>cost_V1</Output>
-      <Index var="time">opPower,cost_V1, outcome_V1, outcome_V2, outcome_SG, outcome_P1P2_0, outcome_P1P2_1, outcome_P1P2_2</Index>
+      <Index var="time">opPower,cost_V1, outcome_V1, outcome_V2, outcome_SG, outcome_P1P2_0, outcome_P1P2_1, outcome_P1P2_2, costFactor</Index>
     </DataSet>
     <DataSet name="cost_V2_PS">
         <Input>
             opPower, time, outcome_V1, outcome_V2, outcome_SG, outcome_P1P2_0, outcome_P1P2_1, outcome_P1P2_2,
-            V2_numberDaysSD, V2_costPerDaySD
+            V2_numberDaysSD, V2_costPerDaySD, costFactor
         </Input>
       <Output>cost_V2</Output>
-      <Index var="time">opPower, cost_V2, outcome_V1, outcome_V2, outcome_SG, outcome_P1P2_0, outcome_P1P2_1, outcome_P1P2_2</Index>
+      <Index var="time">opPower, cost_V2, outcome_V1, outcome_V2, outcome_SG, outcome_P1P2_0, outcome_P1P2_1, outcome_P1P2_2, costFactor</Index>
     </DataSet>
     <DataSet name="cost_SG_PS">
         <Input>
             opPower, time, outcome_V1, outcome_V2, outcome_SG, outcome_P1P2_0, outcome_P1P2_1, outcome_P1P2_2,
-            SG_numberDaysSD, SG_costPerDaySD
+            SG_numberDaysSD, SG_costPerDaySD, costFactor
         </Input>
       <Output>cost_SG</Output>
-      <Index var="time">opPower, cost_SG, outcome_V1, outcome_V2, outcome_SG, outcome_P1P2_0, outcome_P1P2_1, outcome_P1P2_2</Index>
+      <Index var="time">opPower, cost_SG, outcome_V1, outcome_V2, outcome_SG, outcome_P1P2_0, outcome_P1P2_1, outcome_P1P2_2, costFactor</Index>
     </DataSet>
     <DataSet name="cost_P1P2_PS">
         <Input>
             opPower, time, outcome_V1, outcome_V2, outcome_SG, outcome_P1P2_0, outcome_P1P2_1, outcome_P1P2_2,
-            P1P2_numberDaysPred, P1P2_costPerDayPred, P1P2_numberDaysSD, P1P2_costPerDaySD, P1P2_costPerDayReg
+            P1P2_numberDaysPred, P1P2_costPerDayPred, P1P2_numberDaysSD, P1P2_costPerDaySD, P1P2_costPerDayReg, costFactor
         </Input>
       <Output>cost_P1P2_0, cost_P1P2_1, cost_P1P2_2</Output>
-      <Index var="time">opPower,cost_P1P2_0, cost_P1P2_1, cost_P1P2_2, outcome_V1, outcome_V2, outcome_SG, outcome_P1P2_0, outcome_P1P2_1, outcome_P1P2_2</Index>
+      <Index var="time">
+          opPower,cost_P1P2_0, cost_P1P2_1, cost_P1P2_2, outcome_V1, outcome_V2, outcome_SG, outcome_P1P2_0, outcome_P1P2_1, outcome_P1P2_2, costFactor
+      </Index>
     </DataSet>
     <DataSet name="main">
       <Input>a_V1, b_V1,
@@ -497,11 +516,11 @@
       <Output>opPower,
               p_V1, p_V2, p_P1, p_P2, p_SG,
               outcome_V1, outcome_V2, outcome_SG, outcome_P1P2_0, outcome_P1P2_1, outcome_P1P2_2,
-              cost_V1, cost_V2, cost_SG, cost_P1P2_0, cost_P1P2_1, cost_P1P2_2
+              cost_V1, cost_V2, cost_SG, cost_P1P2_0, cost_P1P2_1, cost_P1P2_2, costFactor
       </Output>
       <Index var="time">opPower,p_V1, p_V2, p_P1, p_P2, p_SG,
               outcome_V1, outcome_V2, outcome_SG, outcome_P1P2_0, outcome_P1P2_1, outcome_P1P2_2,
-              cost_V1, cost_V2, cost_SG, cost_P1P2_0, cost_P1P2_1, cost_P1P2_2 
+              cost_V1, cost_V2, cost_SG, cost_P1P2_0, cost_P1P2_1, cost_P1P2_2, costFactor
       </Index>
     </DataSet>
     <PointSet name="inputPlaceHolderMain">
@@ -515,6 +534,10 @@
     </PointSet>
 
     <PointSet name="inputPlaceHolder_plantData_PS">
+      <Input>InputPlaceHolder</Input>
+      <Output>OutputPlaceHolder</Output>
+    </PointSet>
+    <PointSet name="inputPlaceHolder_priceData_PS">
       <Input>InputPlaceHolder</Input>
       <Output>OutputPlaceHolder</Output>
     </PointSet>
