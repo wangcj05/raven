@@ -3,7 +3,7 @@
   <RunInfo>
       <WorkingDir>MFW</WorkingDir>
       <Sequence>MultiRun,print,statPP</Sequence>
-      <batchSize>1</batchSize>
+      <batchSize>6</batchSize>
   </RunInfo>
 
   <Steps>
@@ -117,7 +117,7 @@
   <Samplers>
     <MonteCarlo name="MC_main">
       <samplerInit>
-        <limit>3</limit>
+        <limit>100</limit>
         <initialSeed>2561978</initialSeed>
       </samplerInit>
 
