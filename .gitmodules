@@ -16,3 +16,6 @@
 [submodule "plugins/FARM"]
 	path = plugins/FARM
 	url = https://github.com/Argonne-National-Laboratory/FARM.git
+[submodule "plugins/bayesiancalibration"]
+	path = plugins/bayesiancalibration
+	url = https://hpcgitlab.hpc.inl.gov/RAVEN_PLUGINS/bayesiancalibration.git
