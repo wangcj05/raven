@@ -636,6 +636,29 @@ class Code(Model):
           outputFile = finalCodeOutput
         else:
           returnDict = finalCodeOutput
+
+    ## If the run was successful
+    if returnCode == 0:
+      ## This may be a tautology at this point --DPM 4/12/17
+      ## Special case for RAVEN interface. Added ravenCase flag --ALFOA 09/17/17
+      if outputFile and isStr and not ravenCase:
+        outFile = Files.CSV()
+        ## Should we be adding the file extension here?
+        outFile.initialize(outputFile+'.csv', path=metaData['subDirectory'])
+
+        csvLoader = CsvLoader.CsvLoader()
+        # does this CodeInterface have sufficiently intense (or limited) CSV files that
+        #   it needs to assume floats and use numpy, or can we use pandas?
+        loadUtility = self.code.getCsvLoadUtil()
+        csvData = csvLoader.loadCsvFile(outFile.getAbsFile(), nullOK=False, utility=loadUtility)
+        try:
+          testData = [float(elem) for elem in csvData['k'].values.tolist()]
+        except ValueError:
+
+        # returnDict = csvLoader.toRealization(csvData)
+
+          returnCode = -1
+
     ## If the run was successful
     if returnCode == 0:
       ## This may be a tautology at this point --DPM 4/12/17
