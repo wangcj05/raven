@@ -178,3 +178,26 @@ class GenericCode(CodeInterfaceBase):
     parser.modifyInternalDictionary(**Kwargs)
     parser.writeNewInput(infiles,origfiles)
     return currentInputFiles
+
+  def checkForOutputFailure(self, output, workingDir):
+    """
+      This method is called by RAVEN at the end of each run if the return code is == 0.
+      This method needs to be implemented for the codes that, if the run fails, return a return code that is 0
+      This can happen in those codes that record the failure of the job (e.g. not converged, etc.) as normal termination (returncode == 0)
+      This method can be used, for example, to parse the output file looking for a special keyword that testifies that a particular job got failed
+      (e.g. in RELAP5 would be the keyword "********")
+      @ In, output, string, the Output name root
+      @ In, workingDir, string, current working dir
+      @ Out, failure, bool, True if the job is failed, False otherwise
+    """
+    failure = False
+    import pandas as pd
+    import numpy as np
+    df = pd.read_csv(os.path.join(workingDir,output+'.csv'))
+    # print(df.values.dtype)
+    if df.values.dtype == 'float64':
+      failure = False
+    else:
+      failure = True
+    # failure = np.iscomplex(df.values).any()
+    return failure

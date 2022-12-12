@@ -134,10 +134,10 @@ class CodeInterfaceBase(BaseInterface):
     """
     subcodeCommand,outputfileroot = self.generateCommand(inputFiles,executable,clargs=flags,fargs=fileArgs,preExec=preExec)
 
-    if utils.stringIsTrue(os.environ.get('RAVENinterfaceCheck','False')):
-      return [('parallel','echo')],outputfileroot
-    returnCommand = subcodeCommand,outputfileroot
-    return returnCommand
+    # if utils.stringIsTrue(os.environ.get('RAVENinterfaceCheck','False')):
+    return [('parallel','echo')],outputfileroot
+    # returnCommand = subcodeCommand,outputfileroot
+    # return returnCommand
 
   def readXML(self, xmlNode, workingDir=None):
     """
