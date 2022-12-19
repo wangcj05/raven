@@ -800,6 +800,9 @@ class BasicStatistics(PostProcessorInterface):
         calculations['equivalentSamples'] = equivalentSize
       else:
         expectedValueDS = dataSet.mean(dim = self.sampleTag)
+        calculations['equivalentSamples'] = xr.Dataset()
+        for elem in list(needed[metric]['targets']):
+          calculations['equivalentSamples'][elem] = self.sampleSize
       self.calculations[metric] = expectedValueDS
       calculations[metric] = expectedValueDS
     #
