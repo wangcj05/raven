@@ -5,3 +5,4 @@ src/contrib/* linguist-vendored
 include/contrib/* linguist-vendored
 tests/framework/CodeInterfaceTests/* linguist-vendored
 doc/* linguist-documentation
+*.hpp linguist-detectable=false
