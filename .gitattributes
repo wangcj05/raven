@@ -1,3 +1,6 @@
+* linguist-detectable=false
+*.py linguist-detectable=true
+*.ipynb filter=remove-notebook-output
 crow/contrib/include/Eigen/* linguist-vendored
 crow/contrib/include/boost/* linguist-vendored
 ravenframework/contrib/* linguist-vendored
